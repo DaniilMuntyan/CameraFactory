@@ -17,8 +17,8 @@ public final class CameraBody {
 
     public CameraBody(String color) {
         Random rand = new Random();
-        this.dimensions = new Dimensions(15 + rand.nextInt(10), 10 + rand.nextInt(10),
-                5 + rand.nextInt(10));
+        this.dimensions = new Dimensions(15 + rand.nextInt(5), 15 + rand.nextInt(15),
+                15 + rand.nextInt(5));
         this.color = color;
         this.id = UUID.randomUUID();
     }

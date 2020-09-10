@@ -118,7 +118,7 @@ public final class Main {
             packers.add(packer);
         }
 
-        // Product lifecycle
+        // PRODUCT LIFECYCLE
 
         // Assembling
         AssemblingService assemblingService = new AssemblingService();

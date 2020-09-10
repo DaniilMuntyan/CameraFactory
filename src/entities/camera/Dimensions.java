@@ -1,6 +1,7 @@
 package entities.camera;
 
 import java.util.Objects;
+import java.util.Random;
 
 public final class Dimensions implements Comparable<Dimensions> {
 
@@ -14,21 +15,9 @@ public final class Dimensions implements Comparable<Dimensions> {
         this.depth = depth;
     }
 
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public Integer getDepth() {
-        return depth;
-    }
-
     @Override
     public String toString() {
-        return width + "x" + length + "x" + depth;
+        return width + "x" + length + "x" + depth + " см³";
     }
 
     @Override

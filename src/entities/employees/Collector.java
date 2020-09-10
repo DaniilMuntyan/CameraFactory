@@ -4,13 +4,11 @@ import entities.camera.*;
 
 public final class Collector extends Employee {
 
-    public Camera assemble(CameraBack cameraBack, CameraBody cameraBody, Lens lens) {
-        // System.out.println("Collector " + getName() + " " + getSurname() + " assembled new camera " + camera.getId());
-        Employee t = new Employee("", "");
+    public Camera assemble(CameraBack cameraBack, CameraBody cameraBody, CameraLens lens) {
         return new Camera(cameraBack, cameraBody, lens);
     }
 
-    public CameraBack assemble(Dimensions backDims, Long resolution, Long colorDepth) {
+    public CameraBack assemble(Dimensions backDims, Integer resolution, Integer colorDepth) {
         return new CameraBack(backDims, resolution, colorDepth);
     }
 
@@ -18,20 +16,24 @@ public final class Collector extends Employee {
         return new CameraBody(dimensions, color);
     }
 
-    public Lens assemble(Double focalLength, LensType lensType) {
-        return new Lens(focalLength, lensType);
+    public CameraBody assemble(String color) {
+        return new CameraBody(color);
     }
 
-    public void reportDefect(Manager manager, String detail) {
-        manager.addToOrder(detail);
+    public CameraLens assemble(Integer focalLength, LensType lensType) {
+        return new CameraLens(focalLength, lensType);
     }
 
     public Collector(String name, String surname) {
         super(name, surname);
     }
 
+    public Collector(String name, String surname, String phone) {
+        super(name, surname, phone);
+    }
+
     @Override
     public String toString() {
-        return "Collector id: " + getId() + "\n" + getName() + " " + getSurname() + "\nPhone number: " + getPhone();
+        return "Collector " +  getName() + " " + getSurname() + "\nID: " +  getId() + "\nPhone number: " + getPhone();
     }
 }

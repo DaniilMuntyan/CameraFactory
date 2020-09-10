@@ -24,10 +24,14 @@ public final class FinalStageService {
                 "camera " + camera.getId());
     }
 
-    public void reject(Technician technician, Camera camera) {
+    public Boolean checkDefects(Technician technician, Camera camera) {
+        if(!camera.getRejected()) {
+            return false;
+        }
         technician.reject(camera);
         System.out.println("Technician " + technician.getName() + " " + technician.getSurname() + " has rejected " +
                 "camera " + camera.getId());
+        return true;
     }
 
     public void packCamera(Packer packer, Camera camera) {

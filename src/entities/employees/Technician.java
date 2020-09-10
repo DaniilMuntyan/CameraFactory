@@ -11,8 +11,12 @@ public final class Technician extends Employee {
         super(name, surname);
     }
 
+    public Technician(String name, String surname, String phone) {
+        super(name, surname, phone);
+    }
+
     public boolean checkAudioSystem(Camera camera) {
-        Boolean isDefected = new Random().nextInt(15) == 0;
+        Boolean isDefected = new Random().nextInt(15) == 0; // Вероятноть дефекта 1/15
         return !isDefected;
     }
 
@@ -30,7 +34,7 @@ public final class Technician extends Employee {
 
     @Override
     public String toString() {
-        return "Technician id: " + getId() + "\n" + getName() + " " + getSurname() + "\nPhone number: " + getPhone();
+        return "Technician " + getName() + " " + getSurname() + "\nID: " +  getId() + "\nPhone number: " + getPhone();
     }
 
 }

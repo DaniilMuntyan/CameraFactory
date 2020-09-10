@@ -8,12 +8,12 @@ import entities.camera.Dimensions;
 import java.util.Random;
 import java.util.UUID;
 
-public class Tester extends Machine {
+public final class Tester extends Machine {
 
     private boolean dimensionsCheck;
 
-    public Tester(UUID id, String name) {
-        super(id, name);
+    public Tester(String name) {
+        super(name);
     }
 
     public boolean checkDimensions(CameraBack cameraBack) {
@@ -22,12 +22,8 @@ public class Tester extends Machine {
     }
 
     public boolean checkAutofocus(Camera camera) {
-        Boolean isDefected = new Random().nextInt(10) == 0;
+        Boolean isDefected = new Random().nextInt(3) == 0; // Вероятность дефекта - 1/3
         return !isDefected;
-    }
-
-    public void setDimensionsCheck(boolean dimensionsCheck) {
-        this.dimensionsCheck = dimensionsCheck;
     }
 
     @Override

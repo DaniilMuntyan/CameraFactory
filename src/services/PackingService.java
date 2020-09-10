@@ -10,12 +10,12 @@ final class PackingService {
         Boolean isPackedSuccessful = packer.pack(camera);
 
         if(!isPackedSuccessful) {
-            System.out.println("Packer " + packer.getId() + " cannot pack camera " + camera.getId() +
-                    " beacause it was rejected");
+            System.out.println("Packer " + packer.getId() + " failed to pack camera " + camera.getId() +
+                    " beacause it had been rejected");
             return;
         }
 
-        System.out.println("Packer " + packer.getId() + " has been packed a camera " + camera.getId());
+        System.out.println("Packer " + packer.getName() + " has packed camera " + camera.getId());
     }
 
 }

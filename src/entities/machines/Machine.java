@@ -7,9 +7,9 @@ public class Machine {
     private final UUID id;
     private final String name;
 
-    public Machine(UUID id, String name) {
-        this.id = id;
+    public Machine(String name) {
         this.name = name;
+        this.id = UUID.randomUUID();
     }
 
     public UUID getId() {

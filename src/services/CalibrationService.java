@@ -20,8 +20,8 @@ public final class CalibrationService {
         else
             resultChecking = "Matrix is defective";
 
-        System.out.println("Calibrator " + calibrator.getName() + " has checked camera back " + cameraBack.getId() +
-                " matrix. " + resultChecking);
+        System.out.println("Calibrator " + calibrator.getName() + " has checked the matrix of camera back " + cameraBack.getId() +
+                ". " + resultChecking);
     }
 
     public void innerCharacteristics(Calibrator calibrator, Camera camera) {
@@ -30,14 +30,14 @@ public final class CalibrationService {
         camera.setInnerInfo(innerInfo);
 
         System.out.println("Calibrator " + calibrator.getName() + " has got color characteristics of camera " +
-                camera.getId() + ": " + camera.getInnerInfo());
+                camera.getId() + ":\n" + camera.getInnerInfo());
     }
 
     public void saveResults(Camera camera) {
         try {
             FileWriter csvWriter = new FileWriter("calibration_results.csv");
             String toWrite = camera.getId() + "," + camera.getBack().getMatrixCheck().toString() + "," +
-                    camera.getInnerInfo() + "\n";
+                    camera.getInnerInfo().replace("\n", ",") + "\n";
 
             csvWriter.append(toWrite);
             csvWriter.flush();
@@ -45,6 +45,7 @@ public final class CalibrationService {
         } catch (IOException e) {
             System.out.println("Results saving failed");
         }
+        System.out.println("Information about camera " + camera.getId() + " has been saved");
 
     }
 

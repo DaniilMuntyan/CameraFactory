@@ -1,37 +1,45 @@
 package entities.employees;
 
+import entities.camera.Camera;
+
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.UUID;
 
 public final class Manager extends Employee {
 
-    private final Queue<String> defect_queue = new ArrayDeque<>();
+    private final Queue<Camera> defect_queue;
 
-    public void orderDetails(String detail) {
-        defect_queue.remove(detail);
+    public void orderDetailsFor(Camera camera) {
+        defect_queue.remove(camera);
     }
 
-    public void addToOrder(String detail) {
-        defect_queue.add(detail);
+    public void addToOrder(Camera camera) {
+        defect_queue.add(camera);
     }
 
     public Manager(String name, String surname) {
         super(name, surname);
+        defect_queue = new ArrayDeque<>();
+    }
+
+    public Manager(String name, String surname, String phone) {
+        super(name, surname, phone);
+        defect_queue = new ArrayDeque<>();
     }
 
     private String getDefectQueue() {
         String detailsToOrder = "";
-        for (String detail: defect_queue) {
-            detailsToOrder = detailsToOrder.concat(detail + "\n");
+        for (Camera camera: defect_queue) {
+            detailsToOrder = detailsToOrder.concat(camera.getId() + "\n");
         }
         return detailsToOrder;
     }
 
     @Override
     public String toString() {
-        return "Manager id: " + getId() + "\n" + getName() + " " + getSurname() + "\nPhone number: " + getPhone() +
-                "\nDetails to order:\n" + getDefectQueue();
+        return "Manager " + getName() + " " + getSurname() + "\nID: " +  getId() + "\nPhone number: " + getPhone() +
+                "\nDetails to order: " + getDefectQueue();
     }
 
 }

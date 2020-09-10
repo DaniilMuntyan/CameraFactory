@@ -2,38 +2,42 @@ package services;
 
 import entities.camera.*;
 import entities.employees.Collector;
-import entities.employees.Manager;
 
 public final class AssemblingService {
 
-    public void assembleBack(Collector collector, Dimensions backDims, Long resolution, Long colorDepth) {
+    public CameraBack assembleBack(Collector collector, Dimensions backDims, Integer resolution, Integer colorDepth) {
         CameraBack cameraBack = collector.assemble(backDims, resolution, colorDepth);
         System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has assembled " +
-                "a digital camera back " + cameraBack.getId());
+                "camera back " + cameraBack.getId());
+        return cameraBack;
     }
 
-    public void assembleBody(Collector collector, Dimensions dimensions, String color) {
+    public CameraBody assembleBody(Collector collector, Dimensions dimensions, String color) {
         CameraBody cameraBody = collector.assemble(dimensions, color);
         System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has assembled " +
-                "a camera body " + cameraBody.getId());
+                "camera body " + cameraBody.getId());
+        return cameraBody;
     }
 
-    public void assembleLens(Collector collector, Double focalLength, LensType lensType) {
-        Lens cameraLens = collector.assemble(focalLength, lensType);
+    public CameraBody assembleBody(Collector collector, String color) {
+        CameraBody cameraBody = collector.assemble(color);
         System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has assembled " +
-                "a camera body " + cameraLens.getId());
+                "camera body " + cameraBody.getId());
+        return cameraBody;
     }
 
-    public void assembleCamera(Collector collector, CameraBack cameraBack, CameraBody cameraBody, Lens comeraLens) {
-        collector.assemble(cameraBack, cameraBody, comeraLens);
+    public CameraLens assembleLens(Collector collector, Integer focalLength, LensType lensType) {
+        CameraLens cameraLens = collector.assemble(focalLength, lensType);
         System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has assembled " +
-                "a camera lens " + comeraLens.getId());
+                "camera lens " + cameraLens.getId());
+        return cameraLens;
     }
 
-    public void reportDetailDefect(Collector collector, Manager manager, String detail) {
-        collector.reportDefect(manager, detail);
-        System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has reported to " +
-                "manager  " + manager.getName() + " " + manager.getSurname() + " to order " + detail);
+    public Camera assembleCamera(Collector collector, CameraBack cameraBack, CameraBody cameraBody, CameraLens cameraLens) {
+        Camera camera = collector.assemble(cameraBack, cameraBody, cameraLens);
+        System.out.println("Collector " + collector.getName() + " " + collector.getSurname() + " has assembled " +
+                "camera " + camera.getId());
+        return camera;
     }
 
 }

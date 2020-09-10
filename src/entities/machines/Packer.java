@@ -4,10 +4,10 @@ import entities.camera.Camera;
 
 import java.util.UUID;
 
-public class Packer extends Machine {
+public final class Packer extends Machine {
 
-    public Packer(UUID id, String name) {
-        super(id, name);
+    public Packer(String name) {
+        super(name);
     }
 
     public boolean pack(Camera camera) {

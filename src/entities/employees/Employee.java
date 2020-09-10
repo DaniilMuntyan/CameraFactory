@@ -15,12 +15,9 @@ public class Employee {
         this.id = UUID.randomUUID();
     }
 
-    public void setPhone(String phone) {
+    public Employee(String name, String surname, String phone) {
+        this(name, surname);
         this.phone = phone;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public String getName() {
@@ -35,8 +32,12 @@ public class Employee {
         return id;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public String toString() {
-        return "Employee id: " + id + "\n" + this.name + " " + this.surname + "\nPhone number: " + this.phone;
+        return "Employee " + this.name + " " + this.surname + "\nID: " +  this.id + "\nPhone number: " + this.phone;
     }
 }

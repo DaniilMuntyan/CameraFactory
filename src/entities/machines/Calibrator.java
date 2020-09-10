@@ -6,15 +6,15 @@ import entities.camera.CameraBack;
 import java.util.Random;
 import java.util.UUID;
 
-public class Calibrator extends Machine {
+public final class Calibrator extends Machine {
 
-    public Calibrator(UUID id, String name) {
-        super(id, name);
+    public Calibrator(String name) {
+        super(name);
     }
 
     public boolean checkMatrix(CameraBack cameraBack) {
         Random rnd = new Random();
-        Boolean matrixCheck = rnd.nextInt(10) != 0;
+        Boolean matrixCheck = rnd.nextInt(10) != 0; // Вероятность дефекта - 1/10
         cameraBack.setMatrixCheck(matrixCheck);
         return matrixCheck;
     }

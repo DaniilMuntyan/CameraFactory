@@ -12,13 +12,13 @@ public final class Camera {
     private Boolean isRejected = false;
     private CameraBack back;
     private CameraBody cameraBody;
-    private Lens lens;
+    private CameraLens lens;
 
-    public Camera(UUID id) {
-        this.id = id;
+    public Camera() {
+        this.id = UUID.randomUUID();
     }
 
-    public Camera(CameraBack back, CameraBody cameraBody, Lens lens) {
+    public Camera(CameraBack back, CameraBody cameraBody, CameraLens lens) {
         this.back = back;
         this.cameraBody = cameraBody;
         this.lens = lens;
@@ -66,7 +66,9 @@ public final class Camera {
         String packing = isPacked ? "Packed" : "Unpacked";
         String flashing = isFirmware ? "flashed" : "unflashed";
         String cleaning = isWipedClean ? "wiped" : "not wiped";
-        return "\n" + packing + ", "  + cleaning + ", " +  flashing + " camera " + id + "\n\n" + back + "\n\n" +
-                cameraBody + "\n\n" + lens + "\n\n";
+
+        String string = (packing + ", "  + cleaning + ", " +  flashing + " camera " + id + "\n" + back + "\n" +
+                cameraBody + "\n" + lens);
+        return string;
     }
 }

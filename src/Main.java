@@ -242,7 +242,7 @@ public final class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         DataForTesting dataForTesting = new DataForTesting();
 
         ListOfEntities listOfEntities = initializeEntities(dataForTesting);

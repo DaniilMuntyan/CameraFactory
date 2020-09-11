@@ -23,8 +23,8 @@ public final class CameraBack {
         Random rand = new Random();
         this.dimensions = new Dimensions(8 + rand.nextInt(2), 6 + rand.nextInt(4),
                 4 + rand.nextInt(2));
-        this.resolution = 20 + rand.nextInt(60); // Мпикс
-        this.colorDepth = 10 + rand.nextInt(7); // Биты
+        this.resolution = 20 + rand.nextInt(60); // mp
+        this.colorDepth = 10 + rand.nextInt(7); // bpp
         this.id = UUID.randomUUID();
     }
 

@@ -15,10 +15,7 @@ public final class CalibrationService {
 
         cameraBack.setMatrixCheck(matrixCheck);
 
-        if (matrixCheck)
-            resultChecking = "Matrix is serviceable";
-        else
-            resultChecking = "Matrix is defective";
+        resultChecking = matrixCheck ? "Matrix is serviceable" : "Matrix is defective";
 
         System.out.println("Calibrator " + calibrator.getName() + " has checked the matrix of camera back " + cameraBack.getId() +
                 ". " + resultChecking);

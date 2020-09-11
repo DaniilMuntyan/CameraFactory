@@ -3,7 +3,7 @@ package services;
 import entities.camera.Camera;
 import entities.machines.Packer;
 
-// Модификатор доступа отсутствует. Для того чтобы сервис был доступен только в классах текущего пакета
+// Default access modifier. So the service is available to any other class only in the current package
 final class PackingService {
 
     public void pack(Packer packer, Camera camera) {

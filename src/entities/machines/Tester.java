@@ -20,7 +20,7 @@ public final class Tester extends Machine {
     }
 
     public boolean checkAutofocus(Camera camera) {
-        Boolean isDefected = new Random().nextInt(4) == 0; // Вероятность дефекта - 1/4
+        Boolean isDefected = new Random().nextInt(4) == 0; // Probability of defect: 1/4
         return !isDefected;
     }
 

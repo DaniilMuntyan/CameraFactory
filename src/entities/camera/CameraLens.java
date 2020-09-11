@@ -17,15 +17,6 @@ public final class CameraLens {
         this.id = UUID.randomUUID();
     }
 
-    public CameraLens() {
-        Random rand = new Random();
-        LensType[] lensTypeLength = LensType.values();
-
-        this.focalLength = 35 + rand.nextInt(35);
-        this.lensType = lensTypeLength[rand.nextInt(lensTypeLength.length)];
-        this.id = UUID.randomUUID();
-    }
-
     @Override
     public String toString() {
         return "Camera lens id: " + id + "\n" + "Focal length: " + focalLength + " mm\nLens type: " + lensType;

@@ -111,7 +111,7 @@ public final class Main {
             List<String> nameSurnamePhone = getNameSurnamePhone(dataForTesting);
             Employee manager;
 
-            if (i % 2 == 0) { // Чтобы задействовать все конструкторы класса Manager (с|без номера телефона)
+            if (i % 2 == 0) { // with|without phone number
                 manager = new Manager(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
             } else {
                 manager = new Manager(nameSurnamePhone.get(0), nameSurnamePhone.get(1));
@@ -126,7 +126,7 @@ public final class Main {
             Employee collector;
             Employee technician;
 
-            if (i % 2 == 0) { // с|без номера телефона
+            if (i % 2 == 0) { // with|without phone number
                 collector = new Collector(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
             } else {
                 collector = new Collector(nameSurnamePhone.get(0), nameSurnamePhone.get(1));
@@ -135,10 +135,10 @@ public final class Main {
             listOfEntities.collectors.add(collector);
 
             nameSurnamePhone = getNameSurnamePhone(dataForTesting);
-            if (i % 2 == 0) { // Аналогично
+            if (i % 2 == 0) { // Similarly
                 technician = new Technician(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
             } else {
-                technician = new Technician(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
+                technician = new Technician(nameSurnamePhone.get(0), nameSurnamePhone.get(1));
             }
 
             listOfEntities.technicians.add(technician);

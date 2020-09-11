@@ -17,9 +17,9 @@ public final class Dimensions implements Comparable<Dimensions> {
 
     public Dimensions() {
         Random rand = new Random();
-        this.width = 16 + rand.nextInt(10); // От 16 до 26 (стандарт, прописан в tester.checkDimensions: 25)
-        this.length = 11 + rand.nextInt(10); // От 11 до 21 (стандарт: 20)
-        this.depth = 6 + rand.nextInt(10); // От 6 до 16 (стандарт: 15)
+        this.width = 16 + rand.nextInt(10); // From 16 to 26 (standard, described in tester.checkDimensions: 25)
+        this.length = 11 + rand.nextInt(10); // From 11 to 21 (standard: 20)
+        this.depth = 6 + rand.nextInt(10); // From 6 to 16 (standard: 15)
     }
 
     @Override

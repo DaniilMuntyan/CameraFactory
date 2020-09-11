@@ -14,7 +14,7 @@ public final class Calibrator extends Machine {
 
     public boolean checkMatrix(CameraBack cameraBack) {
         Random rnd = new Random();
-        Boolean matrixCheck = rnd.nextInt(10) != 0; // Вероятность дефекта - 1/10
+        Boolean matrixCheck = rnd.nextInt(10) != 0; // Probability of defect: 1/10
         cameraBack.setMatrixCheck(matrixCheck);
         return matrixCheck;
     }
@@ -22,9 +22,9 @@ public final class Calibrator extends Machine {
     public String innerCharacteristics(Camera camera) {
         Random rand = new Random();
 
-        Double lensAngleOfView = 10 + (180 - 10) * rand.nextDouble(); // Угол поля зрения
-        Double lensSpeed = 0 + 11 * rand.nextDouble(); // Светосила
-        Double depthOfField = 2 + 18 * rand.nextDouble(); // Глубина резко изображаемого пространства
+        Double lensAngleOfView = 10 + (180 - 10) * rand.nextDouble();
+        Double lensSpeed = 0 + 11 * rand.nextDouble();
+        Double depthOfField = 2 + 18 * rand.nextDouble();
 
         String colorInfo = "Lens angle of view: " + lensAngleOfView.toString() + "\nLens speed: " +
                 lensSpeed.toString() + "\nDepth of field: " + depthOfField.toString();

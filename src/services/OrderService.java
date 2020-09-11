@@ -8,7 +8,7 @@ public final class OrderService {
 
     public void reportAboutDefect(Manager manager, Camera camera) {
         manager.addToOrder(camera);
-        System.out.println("Defect of camera (" + camera.getId() + ") has been reported to manager" +
+        System.out.println("Defect of camera (" + camera.getId() + ") has been reported to manager " +
                 manager.getName() + " " + manager.getSurname());
     }
 

@@ -16,7 +16,7 @@ public final class Technician extends Employee {
     }
 
     public boolean checkAudioSystem(Camera camera) {
-        Boolean isDefected = new Random().nextInt(15) == 0; // Вероятноть дефекта 1/15
+        Boolean isDefected = new Random().nextInt(10) == 0; // Вероятноть дефекта 1/10
         return !isDefected;
     }
 

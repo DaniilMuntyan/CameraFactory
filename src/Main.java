@@ -61,118 +61,205 @@ public final class Main {
         return list.get(rand.nextInt(list.size()));
     }
 
-    public static void main(String[] args) {
-        List<String> names = getListFromFile("./src/Files/Names.txt");
-        List<String> surnames = getListFromFile("./src/Files/Surnames.txt");
-        List<String> colors = getListFromFile("./src/Files/Colors.txt");
-        List<String> robots = getListFromFile("./src/Files/Robot companies.txt");
-        List<String> phones = getPhones();
+    private final static class DataForTesting {
+        final List<String> names;
+        final List<String> surnames;
+        final List<String> colors;
+        final List<String> robots;
+        final List<String> phones;
+
+        DataForTesting() {
+            this.names = getListFromFile("./src/Files/Names.txt");
+            this.surnames = getListFromFile("./src/Files/Surnames.txt");
+            this.colors = getListFromFile("./src/Files/Colors.txt");
+            this.robots = getListFromFile("./src/Files/Robot companies.txt");
+            this.phones = getPhones();
+        }
+    }
+
+    private final static class ListOfEntities {
+        final List<Employee> collectors;
+        final List<Employee> managers;
+        final List<Employee> technicians;
+        final List<Machine> calibrators;
+        final List<Machine> testers;
+        final List<Machine> packers;
+
+        ListOfEntities() {
+            this.collectors = new ArrayList<>();
+            this.managers = new ArrayList<>();
+            this.technicians = new ArrayList<>();
+            this.calibrators = new ArrayList<>();
+            this.testers = new ArrayList<>();
+            this.packers = new ArrayList<>();
+        }
+    }
+
+    private static List<String> getNameSurnamePhone(DataForTesting dataForTesting) {
+        String name = getRandomFromList(dataForTesting.names);
+        String surname = getRandomFromList(dataForTesting.surnames);
+        String phone = getRandomFromList(dataForTesting.phones);
+
+        return new ArrayList<>(Arrays.asList(name, surname, phone));
+    }
+
+    private static ListOfEntities initializeEntities(DataForTesting dataForTesting){
+        ListOfEntities listOfEntities = new ListOfEntities();
+
+        // Managers initialization
+        for(int i = 0; i < 5; i++) {
+            List<String> nameSurnamePhone = getNameSurnamePhone(dataForTesting);
+            Employee manager;
+
+            if (i % 2 == 0) { // Чтобы задействовать все конструкторы класса Manager (с|без номера телефона)
+                manager = new Manager(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
+            } else {
+                manager = new Manager(nameSurnamePhone.get(0), nameSurnamePhone.get(1));
+            }
+
+            listOfEntities.managers.add(manager);
+        }
+
+        // Collectors and technicians initialization
+        for(int i = 0; i < 10; i++) {
+            List<String> nameSurnamePhone = getNameSurnamePhone(dataForTesting);
+            Employee collector;
+            Employee technician;
+
+            if (i % 2 == 0) { // с|без номера телефона
+                collector = new Collector(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
+            } else {
+                collector = new Collector(nameSurnamePhone.get(0), nameSurnamePhone.get(1));
+            }
+
+            listOfEntities.collectors.add(collector);
+
+            nameSurnamePhone = getNameSurnamePhone(dataForTesting);
+            if (i % 2 == 0) { // Аналогично
+                technician = new Technician(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
+            } else {
+                technician = new Technician(nameSurnamePhone.get(0), nameSurnamePhone.get(1), nameSurnamePhone.get(2));
+            }
+
+            listOfEntities.technicians.add(technician);
+        }
+
+        // Machines initialization
+        for(int i = 0; i < 5; ++i) {
+            Machine calibrator = new Calibrator(getRandomFromList(dataForTesting.robots));
+            Machine tester = new Tester(getRandomFromList(dataForTesting.robots));
+            Machine packer = new Packer(getRandomFromList(dataForTesting.robots));
+
+            listOfEntities.calibrators.add(calibrator);
+            listOfEntities.testers.add(tester);
+            listOfEntities.packers.add(packer);
+        }
+
+        return listOfEntities;
+
+    }
+
+    private static Camera assembling(ListOfEntities listOfEntities, DataForTesting dataForTesting) {
+        AssemblingService assemblingService = new AssemblingService();
         Random rand = new Random();
 
-        String name;
-        String surname;
-        String phone;
+        Employee collectorCameraBack = getRandomFromList(listOfEntities.collectors);
+        Employee collectorCameraBody = getRandomFromList(listOfEntities.collectors);
+        Employee collectorCameraLens = getRandomFromList(listOfEntities.collectors);
+        Employee collectorCamera = getRandomFromList(listOfEntities.collectors);
 
-        List<Employee> collectors = new ArrayList<>();
-        List<Employee> managers = new ArrayList<>();
-        List<Employee> technicians = new ArrayList<>();
+        // Randomized parameters
+        Dimensions randomDimensions = new Dimensions();
+        Integer resolution = 5 + rand.nextInt(10);
+        Integer colorDepth = 5 + rand.nextInt(10);
+        String colorBody = getRandomFromList(dataForTesting.colors);
+        Integer focalLength = 5 + rand.nextInt(10);
+        LensType lensType = getRandomFromList(Arrays.asList(LensType.values()));
 
-        List<Machine> calibrators = new ArrayList<>();
-        List<Machine> testers = new ArrayList<>();
-        List<Machine> packers = new ArrayList<>();
-
-        Employee manager;
-        for(int i = 0; i < 5; i++) {
-            name = getRandomFromList(names);
-            surname = getRandomFromList(surnames);
-            phone = getRandomFromList(phones);
-            manager = new Manager(name, surname, phone);
-            managers.add(manager);
-        }
-
-        Employee collector;
-        Employee technician;
-        for(int i = 0; i < 10; i++) {
-            name = getRandomFromList(names);
-            surname = getRandomFromList(surnames);
-            phone = getRandomFromList(phones);
-            collector = new Collector(name, surname, phone);
-            collectors.add(collector);
-
-            name = getRandomFromList(names);
-            surname = getRandomFromList(surnames);
-            technician = new Technician(name, surname);
-            technicians.add(technician);
-        }
-
-        Machine calibrator;
-        Machine tester;
-        Machine packer;
-        for(int i = 0; i < 3; ++i) {
-            calibrator = new Calibrator(getRandomFromList(robots));
-            tester = new Tester(getRandomFromList(robots));
-            packer = new Packer(getRandomFromList(robots));
-
-            calibrators.add(calibrator);
-            testers.add(tester);
-            packers.add(packer);
-        }
-
-        // PRODUCT LIFECYCLE
-
-        // Assembling
-        AssemblingService assemblingService = new AssemblingService();
-        CameraBack cameraBack = assemblingService.assembleBack((Collector) getRandomFromList(collectors),
-                new Dimensions(10, 20, 15), 1 + rand.nextInt(10), 12);
+        CameraBack cameraBack = assemblingService.assembleBack((Collector) collectorCameraBack, randomDimensions,
+                resolution, colorDepth);
         print();
-        CameraBody cameraBody = assemblingService.assembleBody((Collector) getRandomFromList(collectors),
-                getRandomFromList(colors));
+        CameraBody cameraBody = assemblingService.assembleBody((Collector) collectorCameraBody, colorBody);
         print();
-        CameraLens cameraLens = assemblingService.assembleLens((Collector) getRandomFromList(collectors), 5,
-                LensType.ZOOM);
+        CameraLens cameraLens = assemblingService.assembleLens((Collector) collectorCameraLens, focalLength, lensType);
         print();
-        Camera camera = assemblingService.assembleCamera((Collector) getRandomFromList(collectors), cameraBack,
-                cameraBody, cameraLens);
+        Camera camera = assemblingService.assembleCamera((Collector) collectorCamera, cameraBack, cameraBody,
+                cameraLens);
         print();
 
-        // Calibration
+        return camera;
+    }
+
+    private static void calibration(ListOfEntities listOfEntities, Camera camera) {
         CalibrationService calibrationService = new CalibrationService();
-        calibrationService.checkMatrix((Calibrator) getRandomFromList(calibrators), cameraBack);
+        Machine calibratorMatrix = getRandomFromList(listOfEntities.calibrators);
+        Machine calibratorCharacteristics =  getRandomFromList(listOfEntities.calibrators);
+
+        calibrationService.checkMatrix((Calibrator) calibratorMatrix, camera.getBack());
         print();
-        calibrationService.innerCharacteristics((Calibrator) getRandomFromList(calibrators), camera);
+        calibrationService.innerCharacteristics((Calibrator) calibratorCharacteristics, camera);
         print();
         calibrationService.saveResults(camera);
         print();
+    }
 
-        // Testing
+    private static void testing(ListOfEntities listOfEntities, Camera camera) {
         MechanicalTestService mechanicalTestService = new MechanicalTestService();
-        mechanicalTestService.checkDimensions((Tester) getRandomFromList(testers), camera);
-        print();
-        mechanicalTestService.checkAutoFocus((Tester) getRandomFromList(testers), camera);
-        print();
-        mechanicalTestService.checkAudioSystem((Technician) getRandomFromList(technicians), camera);
-        print();
+        Tester testerDims = (Tester) getRandomFromList(listOfEntities.testers);
+        Tester testerAutoFocus = (Tester) getRandomFromList(listOfEntities.testers);
+        Technician technicianAudioSystem = (Technician) getRandomFromList(listOfEntities.technicians);
 
-        // Release or rejection
+        mechanicalTestService.checkDimensions(testerDims, camera);
+        print();
+        mechanicalTestService.checkAutoFocus(testerAutoFocus, camera);
+        print();
+        mechanicalTestService.checkAudioSystem(technicianAudioSystem, camera);
+        print();
+    }
+
+    private static void finalStage(ListOfEntities listOfEntities, Camera camera) {
         FinalStageService finalStageService = new FinalStageService();
-        Boolean checkDefects = finalStageService.checkDefects((Technician) getRandomFromList(technicians), camera);
-        Technician technicianFinalStage = (Technician) getRandomFromList(technicians);
+
+        Technician technicianFinalStage = (Technician) getRandomFromList(listOfEntities.technicians);
+        Machine packer = getRandomFromList(listOfEntities.packers);
+        Boolean checkDefects = finalStageService.checkDefects(technicianFinalStage, camera);
         if (!checkDefects) {
             finalStageService.flash(technicianFinalStage, camera);
             print();
             finalStageService.clean(technicianFinalStage, camera);
             print();
-            finalStageService.packCamera((Packer) getRandomFromList(packers), camera);
+            finalStageService.packCamera((Packer) packer, camera);
             print();
         } else {
+            print();
             OrderService orderService = new OrderService();
-            Manager managerToOrder = (Manager) getRandomFromList(managers);
+            Manager managerToOrder = (Manager) getRandomFromList(listOfEntities.managers);
             orderService.reportAboutDefect(managerToOrder, camera);
             print();
             print(managerToOrder);
             orderService.orderDetails(managerToOrder, camera);
             print();
         }
+    }
+
+    public static void main(String[] args) {
+        DataForTesting dataForTesting = new DataForTesting();
+
+        ListOfEntities listOfEntities = initializeEntities(dataForTesting);
+
+        // PRODUCT LIFECYCLE
+
+        // Assembling
+        Camera camera = assembling(listOfEntities, dataForTesting);
+
+        // Calibration
+        calibration(listOfEntities, camera);
+
+        // Testing
+        testing(listOfEntities, camera);
+
+        // Release or rejection
+        finalStage(listOfEntities, camera);
 
         // Resulting product
         print(camera);

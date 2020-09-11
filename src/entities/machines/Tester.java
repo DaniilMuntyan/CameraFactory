@@ -10,8 +10,6 @@ import java.util.UUID;
 
 public final class Tester extends Machine {
 
-    private boolean dimensionsCheck;
-
     public Tester(String name) {
         super(name);
     }
@@ -22,7 +20,7 @@ public final class Tester extends Machine {
     }
 
     public boolean checkAutofocus(Camera camera) {
-        Boolean isDefected = new Random().nextInt(3) == 0; // Вероятность дефекта - 1/3
+        Boolean isDefected = new Random().nextInt(4) == 0; // Вероятность дефекта - 1/4
         return !isDefected;
     }
 
